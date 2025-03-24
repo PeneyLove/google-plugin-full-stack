@@ -1,24 +1,28 @@
 from django.db import models
-from django.contrib.auth.models import User
 
+class User(models.Model):
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=255)
+    email = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_level = models.CharField(max_length=50)
-    user_status = models.CharField(max_length=50)
-    user_balance = models.DecimalField(max_digits=10, decimal_places=2)
+class Platform(models.Model):
+    platform_name = models.CharField(max_length=50)
+    api_url = models.CharField(max_length=255)
+    auth_token = models.CharField(max_length=255, null=True, blank=True)
 
-    def __str__(self):
-        return self.user.username
-
-
-class Order(models.Model):
-    product_name = models.CharField(max_length=200)
-    order_number = models.CharField(max_length=100, unique=True)
-    merchant_number = models.CharField(max_length=100)
-    purchase_time = models.DateTimeField(auto_now_add=True)
-    order_status = models.CharField(max_length=50)
+class Work(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.order_number
+class TransferRecord(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    work = models.ForeignKey(Work, on_delete=models.CASCADE)
+    source_platform = models.ForeignKey(Platform, on_delete=models.CASCADE, related_name='source_transfers')
+    target_platform = models.ForeignKey(Platform, on_delete=models.CASCADE, related_name='target_transfers')
+    transfer_time = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20)
+    error_message = models.TextField(null=True, blank=True)

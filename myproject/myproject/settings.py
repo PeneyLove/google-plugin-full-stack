@@ -2,6 +2,9 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 INSTALLED_APPS = [
     # ...
     'corsheaders',
+    'django.contrib.admin',
+    'django.contrib.contenttypes',
+    'corsheaders',  # 确保只注册一次
 ]
 
 # 修正点1：确保中间件顺序正确
@@ -34,4 +37,3 @@ ALLOWED_HOSTS = [
     'your-domain.com',  # 替换为你的实际域名
     '192.168.218.50'   # 替换为你的实际IP地址
 ]
-# DEBUG = True

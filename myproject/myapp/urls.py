@@ -1,10 +1,9 @@
 from django.urls import path
-from .views import  user_management_list, order_list
-from .views import register
+from . import views
 
 urlpatterns = [
-    # path('hello/', hello, name='hello'),
-    path('user-management/', user_management_list, name='user_management_list'),
-    path('register/', register, name='register'),
-    path('order-list/', order_list, name='order_list'),
+    path('users/<int:user_id>/works/', views.user_works),
+    path('works/<int:work_id>/transfers/', views.transfer_records),
+    # ... 其他路由 ...
+    path('bind-platform/', bind_platform, name='bind_platform'),
 ]

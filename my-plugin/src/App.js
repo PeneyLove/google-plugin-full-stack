@@ -123,6 +123,21 @@ function App() {
             <Table dataSource={orders} columns={orderColumns} />
         </div>
     );
+    const handleBindPlatform = async () => {
+    try {
+        const response = await axios.post('http://your-aws-ec2-ip/api/bind-platform/', {
+            platform_name: 'TikTok',
+            auth_token: 'your-auth-token'
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// 在返回的JSX中添加绑定按钮
+<Button onClick={handleBindPlatform}>绑定平台账号</Button>
+
 }
 
 export default App;
