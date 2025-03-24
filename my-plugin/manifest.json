@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "My Google Plugin",
+    "version": "1.0",
+    "action": {
+        "default_popup": "build/index.html"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage",
+        "http://localhost:8000/*",
+        "https://www.tiktok.com/*"
+    ]
+}
